@@ -98,8 +98,8 @@
                         </a>
                         <!-- Sub menu -->
                         <ul>
-                            <li><a href="login.html">All users</a></li>
-                            <li><a href="signup.html">Create user</a></li>
+                            <li><a href="{{route('users.index')}}">All users</a></li>
+                            <li><a href="{{route('users.create')}}">Create user</a></li>
                         </ul>
                     </li>
 

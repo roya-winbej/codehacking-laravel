@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserForm;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -26,18 +28,19 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::pluck('name', 'id');
+        return view('admin.users.create', ['roles' => $roles]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateUserForm|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserForm $request)
     {
-        //
+        return $request->all();
     }
 
     /**
