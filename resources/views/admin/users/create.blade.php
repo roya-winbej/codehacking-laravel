@@ -6,17 +6,9 @@
 
 @section('content')
 
-    @if(count($errors))
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('admin.partials.errors-validation')
 
-    {!! Form::open(['method' => 'POST', 'action' => 'AdminUsersController@store', 'class' => 'form-horizontal', 'files' => true]) !!}
+    {!! Form::open(['method' => 'POST', 'action' => 'Admin\AdminUsersController@store', 'class' => 'form-horizontal', 'files' => true]) !!}
 
         <div class="form-group">
             {!! Form::label('name', 'Name', ['class' => 'col-sm-2 control-label']) !!}

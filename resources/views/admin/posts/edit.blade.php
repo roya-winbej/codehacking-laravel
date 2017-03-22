@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content-title')
-    Edit user
+    Edit post
 @endsection
 
 @section('content')

@@ -47,7 +47,7 @@
                     <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ Auth::user()->name }}<b class="caret"></b></a>
                                 <ul class="dropdown-menu animated fadeInUp">
                                     <li><a href="profile.html">Profile</a></li>
                                     <li>
@@ -77,7 +77,7 @@
             <div class="sidebar content-box" style="display: block;">
                 <ul class="nav">
                     <!-- Main menu -->
-                    <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                    <li class="current"><a href="#"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
 
                     <li class="submenu">
                         <a href="#">
@@ -86,8 +86,8 @@
                         </a>
                         <!-- Sub menu -->
                         <ul>
-                            <li><a href="login.html">All categories</a></li>
-                            <li><a href="signup.html">Create category</a></li>
+                            <li><a href="#">All categories</a></li>
+                            <li><a href="#">Create category</a></li>
                         </ul>
                     </li>
 
@@ -103,23 +103,21 @@
                         </ul>
                     </li>
 
-                    <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Calendar</a></li>
-                    <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
-                    <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Tables</a></li>
-                    <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Buttons</a></li>
-                    <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> Editors</a></li>
-                    <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Forms</a></li>
                     <li class="submenu">
                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> Pages
+                            <i class="glyphicon glyphicon-book"></i> Posts
                             <span class="caret pull-right"></span>
                         </a>
                         <!-- Sub menu -->
                         <ul>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="signup.html">Signup</a></li>
+                            <li><a href="{{route('posts.index')}}">All posts</a></li>
+                            <li><a href="{{route('posts.create')}}">Create post</a></li>
                         </ul>
                     </li>
+
+                    {{--<li><a href="#"><i class="glyphicon glyphicon-book"></i> test</a></li>--}}
+
+
                 </ul>
             </div>
         </div>
@@ -140,16 +138,6 @@
         </div>
     </div>
 </div>
-
-<footer>
-    <div class="container">
-
-        <div class="copy text-center">
-            Copyright 2017 <a href='#'>Website</a>
-        </div>
-
-    </div>
-</footer>
 
 
 <!-- Scripts -->

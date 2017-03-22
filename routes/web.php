@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'isAdminRights']], function () {
         return view('layouts.admin');
     });
 
-    Route::resource('/admin/users', 'AdminUsersController');
+    Route::resource('/admin/users', 'Admin\AdminUsersController');
+    Route::resource('/admin/posts', 'Admin\AdminPostsController');
 });
 
