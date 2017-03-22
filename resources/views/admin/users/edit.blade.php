@@ -41,7 +41,7 @@
             <div class="form-group">
                 {!! Form::label('role_id', 'Role', ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-10">
-                    {!! Form::select('role_id', $roles, 'S', ['class' => 'form-control']) !!}
+                    {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
 
                 </div>
             </div>

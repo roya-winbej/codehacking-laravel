@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
@@ -94,19 +95,37 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $categories = Category::pluck('name', 'id');
+
+        return view('admin.posts.edit', ['categories' => $categories, 'post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdatePostRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+
+        $inputData = $request->all();
+
+        $post = Post::findOrfail($id);
+
+        $inputData['user_id'] = Auth::user()->id;
+
+        if ($request->file('photo_id')) {
+            $inputData['photo_id'] = $this->store_file($request->file('photo_id'));
+        }
+
+        $post->update($inputData);
+
+        Session::flash('notify', 'Post has been successfully updated');
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -117,6 +136,18 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $postPhoto = public_path() . $post->photo->file;
+
+        if(file_exists($postPhoto)){
+            @unlink($postPhoto);
+        }
+
+        $post->delete();
+
+        Session::flash('notify', 'Post has been successfully deleted');
+
+        return redirect()->route('posts.index');
     }
 }
