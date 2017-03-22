@@ -26,7 +26,7 @@ class CreateUserForm extends FormRequest
         return [
             'email' => 'required|unique:users,email|max:100',
             'password' => 'required|min:6',
-            'role' => 'required'
+            'role_id' => 'required'
         ];
     }
 }
