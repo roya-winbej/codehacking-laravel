@@ -10,6 +10,7 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -21,6 +22,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$user->id}}</td>
+                        <td>{!! $user->photo ?'<img height=50 src='.$user->photo->file.'>' : '' !!}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->role->name}}</td>
