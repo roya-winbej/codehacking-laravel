@@ -3,13 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserForm;
+use App\Http\Requests\UpdateUserForm;
 use App\Photo;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class AdminUsersController extends Controller
 {
+
+    private function store_file($file)
+    {
+
+        $name = time() . $file->getClientOriginalName();
+        $file->move('uploads', $name);
+        $photo = Photo::create(['file' => $name]);
+
+        return $photo->id;
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -43,12 +58,8 @@ class AdminUsersController extends Controller
     {
         $inputData = $request->all();
 
-
-        if ($file = $request->file('photo_id')) {
-            $name = time() . $file->getClientOriginalName();
-            $file->move('uploads', $name);
-            $photo = Photo::create(['file' => $name]);
-            $inputData['photo_id'] = $photo->id;
+        if ($request->file('photo_id')) {
+            $inputData['photo_id'] = $this->store_file($request->file('photo_id'));
         }
 
         $inputData['password'] = bcrypt($request->password);
@@ -77,19 +88,38 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name', 'id');
+
+        return view('admin.users.edit', ['roles' => $roles, 'user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUserForm|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserForm $request, $id)
     {
-        //
+
+        $user = User::findOrFail($id);
+
+        if (!empty($request->password)) {
+            $inputData['password'] = bcrypt($request->password);
+        } else {
+            $inputData = Input::except('password');
+        }
+
+
+        if ($request->file('photo_id')) {
+            $inputData['photo_id'] = $this->store_file($request->file('photo_id'));
+        }
+
+        $user->update($inputData);
+
+        return redirect()->route('users.index');
     }
 
     /**
