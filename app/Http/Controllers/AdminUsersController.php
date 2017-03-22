@@ -9,6 +9,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -66,6 +67,8 @@ class AdminUsersController extends Controller
 
         User::create($inputData);
 
+        Session::flash('notify', 'User has been successfully created');
+
         return redirect()->route('users.index');
     }
 
@@ -119,6 +122,8 @@ class AdminUsersController extends Controller
 
         $user->update($inputData);
 
+        Session::flash('notify', 'User has been successfully updated');
+
         return redirect()->route('users.index');
     }
 
@@ -130,6 +135,20 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $user = User::findOrFail($id);
+
+        $userPhoto = public_path() . $user->photo->file;
+
+        if(file_exists($userPhoto)){
+            @unlink($userPhoto);
+        }
+
+        $user->delete();
+
+        Session::flash('notify', 'User has been successfully deleted');
+
+        return redirect()->route('users.index');
+
     }
 }

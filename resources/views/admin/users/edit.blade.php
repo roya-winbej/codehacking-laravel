@@ -69,6 +69,17 @@
                 </div>
             </div>
             {!! Form::close() !!}
+
+
+            {!! Form::open(['method' => 'DELETE', 'action' => ['AdminUsersController@destroy', $user->id]]) !!}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        {!! Form::submit('Delete User', ['class' => 'btn btn-danger pull-right']) !!}
+                    </div>
+                </div>
+            </div>
+            {!! Form::close() !!}
         </div>
     </div>
 

@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+
+    @include('admin.partials.flash-msg')
+
     <div class="table-responsive">
         <table class="table">
             <thead>
