@@ -86,8 +86,8 @@
                         </a>
                         <!-- Sub menu -->
                         <ul>
-                            <li><a href="#">All categories</a></li>
-                            <li><a href="#">Create category</a></li>
+                            <li><a href="{{ route('categories.index') }}">All categories</a></li>
+                            <li><a href="{{ route('categories.create') }}">Create category</a></li>
                         </ul>
                     </li>
 

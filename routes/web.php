@@ -26,5 +26,6 @@ Route::group(['middleware' => ['auth', 'isAdminRights']], function () {
 
     Route::resource('/admin/users', 'Admin\AdminUsersController');
     Route::resource('/admin/posts', 'Admin\AdminPostsController');
+    Route::resource('/admin/categories', 'Admin\AdminCategoriesController');
 });
 
